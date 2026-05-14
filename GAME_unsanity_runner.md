@@ -7,6 +7,7 @@ identity:
   players: 1
   renderer: "Three.js (Orthographic 전용 원칙) — Canvas 2D로 플레이 월드를 대신하지 않는다."
   architecture_guide_declarative: docs/JSON_RENDER_Unsanity_Guide.md
+  development_structure_handbook: docs/DEVELOPMENT_STRUCTURE.md
 
   production_methodology_section_note: >-
     기획 순서·시트 책임·경로·로더·카탈로그를 한 세트로 다룰 때의 체크리스트,

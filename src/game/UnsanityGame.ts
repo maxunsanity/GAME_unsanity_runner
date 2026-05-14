@@ -61,6 +61,33 @@ interface CoinBody {
   collected: boolean;
 }
 
+interface AnimatingCoin {
+  mesh: THREE.Object3D;
+  t0: number;
+  dur: number;
+  sx: number;
+  sy: number;
+}
+
+interface SpeedEffect {
+  mesh: THREE.Mesh;
+  t0: number;
+  dur: number;
+  vx: number;
+  vy: number;
+  isLine: boolean;
+}
+
+interface AnimatingActor {
+  mesh: THREE.Group;
+  t0: number;
+  dur: number;
+  x0: number;
+  y0: number;
+  vx: number;
+  vy: number;
+}
+
 class Rect {
   constructor(
     public x: number,
@@ -121,13 +148,18 @@ export class UnsanityGame {
   private readonly statusInvincRow: ParsedStatusSkillRow | null;
   private dragonBottom = 0;
   private dragonVy = 0;
-  private grounded = true;
+  private jumpCount = 0;
+
+  private animatingCoins: AnimatingCoin[] = [];
+  private speedEffects: SpeedEffect[] = [];
 
   private obstacles: ObstacleBody[] = [];
   private coins: CoinBody[] = [];
 
   private obstacleCooldown = 0;
   private coinCooldown = 0;
+
+  private animatingActors: AnimatingActor[] = [];
 
   private dragonMesh: THREE.Group;
   /** 피격·펄스 애니용 기준 균등 스케일 */
@@ -606,7 +638,7 @@ export class UnsanityGame {
     const g = this.tb.num('GROUND');
     this.dragonBottom = g;
     this.dragonVy = 0;
-    this.grounded = true;
+    this.jumpCount = 0;
     this.dragonMesh.rotation.set(0, 0, 0);
     this.dragonMesh.quaternion.identity();
     this.dragonMesh.scale.setScalar(this.dragonScaleFit);
@@ -647,7 +679,7 @@ export class UnsanityGame {
     };
     this.dragonBottom = this.tb.num('GROUND');
     this.dragonVy = 0;
-    this.grounded = true;
+    this.jumpCount = 0;
     this.dragonMesh.rotation.set(0, 0, 0);
     this.dragonMesh.quaternion.identity();
     this.dragonMesh.scale.setScalar(this.dragonScaleFit);
@@ -680,21 +712,60 @@ export class UnsanityGame {
     }
     this.obstacles = [];
     for (const c of this.coins) {
-      if (!c.collected) {
-        this.scene.remove(c.mesh);
-        disposeObject3D(c.mesh);
-      }
+      this.scene.remove(c.mesh);
+      disposeObject3D(c.mesh);
     }
     this.coins = [];
+    this.animatingActors = [];
+    for (const c of this.animatingCoins) {
+      this.scene.remove(c.mesh);
+      disposeObject3D(c.mesh);
+    }
+    this.animatingCoins = [];
+    for (const s of this.speedEffects) {
+      this.scene.remove(s.mesh);
+      disposeObject3D(s.mesh);
+    }
+    this.speedEffects = [];
     this.purgeDynamicSceneChildren();
   }
 
   private tryJump() {
     if (this.phase !== 'playing' || this.transitioning) return;
-    if (!this.grounded) return;
+    
+    if (this.jumpCount >= 2) return;
+
+    this.jumpCount++;
     this.sfx.play('player_jump');
-    this.dragonVy = this.tb.num('JUMP_IMPULSE');
-    this.grounded = false;
+    
+    // 2nd jump has 1.2x force
+    const impulse = this.jumpCount === 1 
+      ? this.tb.num('JUMP_IMPULSE') 
+      : this.tb.num('JUMP_IMPULSE') * 1.2;
+      
+    this.dragonVy = impulse;
+
+    if (this.jumpCount === 2) {
+      this.spawnJumpPuff();
+    }
+  }
+
+  private spawnJumpPuff() {
+    const dragonX = this.dragonMesh.position.x;
+    const dragonY = this.dragonMesh.position.y;
+    for (let i = 0; i < 3; i++) {
+      const size = rnd(4, 8);
+      const mesh = new THREE.Mesh(
+        new THREE.BoxGeometry(size, size, size),
+        new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.6, transparent: true })
+      );
+      mesh.position.set(dragonX, dragonY - 10, 2);
+      this.scene.add(mesh);
+      this.speedEffects.push({
+        mesh, t0: performance.now(), dur: 400,
+        vx: rnd(-50, 50), vy: rnd(-100, -50), isLine: false
+      });
+    }
   }
 
   private loop = () => {
@@ -710,6 +781,9 @@ export class UnsanityGame {
       this.dragonMesh.scale.setScalar(this.dragonScaleFit * pulse);
     }
     this.updateDragonInvincibilityVisual();
+    this.stepAnimatingActors(delta);
+    this.stepAnimatingCoins(delta);
+    this.stepSpeedEffects(delta);
 
     if (this.phase === 'idle' || this.phase === 'gameover') {
       const dL = this.tb.num('DRAGON_LEFT');
@@ -758,11 +832,17 @@ export class UnsanityGame {
     if (this.dragonBottom <= g) {
       this.dragonBottom = g;
       this.dragonVy = 0;
-      this.grounded = true;
+      this.jumpCount = 0;
     }
     this.syncDragonPose();
 
+    // High Speed Effects: Tilt & Trail
+    const speedRatio = Math.min(1, this.state.score / 8000);
+    this.dragonMesh.rotation.z = -0.15 * speedRatio;
+
     this.spawnActors(delta);
+    this.spawnSpeedLines();
+    this.spawnTrailParticles();
 
     const dr = this.dragonHitRect(this.dragonBottom);
 
@@ -811,18 +891,27 @@ export class UnsanityGame {
 
       if (aabbOverlap(coinPickup, cr)) {
         cn.collected = true;
-        this.scene.remove(cn.mesh);
-        disposeObject3D(cn.mesh);
-        this.coins.splice(i, 1);
+
         if (cn.tpl.pickup_kind === 'invincibility') {
           this.invincibleUntilMs =
             performance.now() + this.invincDurationMs();
           this.sfx.play('pickup_star_invincibility');
+          this.scene.remove(cn.mesh);
+          disposeObject3D(cn.mesh);
         } else {
-          this.state.coinCount += 1;
           this.sfx.play('pickup_coin');
+          this.state.coinCount += 1;
+          this.refreshHud();
           this.bumpStarMilestoneFromCoinPickup();
+          this.animatingCoins.push({
+            mesh: cn.mesh,
+            t0: performance.now(),
+            dur: 600,
+            sx: cn.mesh.position.x,
+            sy: cn.mesh.position.y
+          });
         }
+        this.coins.splice(i, 1);
       } else if (cx + cn.w / 2 < destroyLeftX) {
         this.scene.remove(cn.mesh);
         disposeObject3D(cn.mesh);
@@ -831,6 +920,65 @@ export class UnsanityGame {
     }
 
     this.refreshHud();
+  }
+
+  private stepAnimatingActors(delta: number) {
+    const now = performance.now();
+    for (let i = this.animatingActors.length - 1; i >= 0; i--) {
+      const a = this.animatingActors[i]!;
+      const elapsed = now - a.t0;
+      const alpha = Math.min(1, elapsed / a.dur);
+      a.mesh.position.x += a.vx * delta;
+      a.mesh.position.y += a.vy * delta;
+      if (alpha >= 1) {
+        this.scene.remove(a.mesh);
+        disposeObject3D(a.mesh);
+        this.animatingActors.splice(i, 1);
+      }
+    }
+  }
+
+  private stepAnimatingCoins(delta: number) {
+    const now = performance.now();
+    const vh = this.tb.num('VIEW_H');
+    const targetX = 40;
+    const targetY = vh - 40;
+
+    for (let i = this.animatingCoins.length - 1; i >= 0; i--) {
+      const c = this.animatingCoins[i]!;
+      const alpha = (now - c.t0) / c.dur;
+      if (alpha >= 1) {
+        this.scene.remove(c.mesh);
+        disposeObject3D(c.mesh);
+        this.animatingCoins.splice(i, 1);
+        continue;
+      }
+      // Ease Out Cubic
+      const t = 1 - Math.pow(1 - alpha, 3);
+      c.mesh.position.x = c.sx + (targetX - c.sx) * t;
+      c.mesh.position.y = c.sy + (targetY - c.sy) * t;
+      c.mesh.scale.setScalar(1 - alpha * 0.5);
+      c.mesh.rotation.z += delta * 15;
+    }
+  }
+
+  private stepSpeedEffects(delta: number) {
+    const now = performance.now();
+    for (let i = this.speedEffects.length - 1; i >= 0; i--) {
+      const s = this.speedEffects[i]!;
+      const alpha = (now - s.t0) / s.dur;
+      if (alpha >= 1) {
+        this.scene.remove(s.mesh);
+        disposeObject3D(s.mesh);
+        this.speedEffects.splice(i, 1);
+        continue;
+      }
+      s.mesh.position.x += s.vx * delta;
+      s.mesh.position.y += s.vy * delta;
+      s.mesh.scale.setScalar(1 - alpha);
+      if (s.isLine) s.mesh.scale.y = 1;
+      if (s.mesh.material instanceof THREE.Material) s.mesh.material.opacity = (1 - alpha) * 0.6;
+    }
   }
 
   private spawnActors(delta: number) {
@@ -1027,6 +1175,41 @@ export class UnsanityGame {
       w,
       h,
       collected: false,
+    });
+  }
+
+  private spawnSpeedLines() {
+    if (this.phase !== 'playing') return;
+    const spawnChance = 0.2 + Math.min(0.5, this.state.score / 15000);
+    if (Math.random() > spawnChance) return;
+
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(rnd(30, 80), 2, 1),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.5, transparent: true })
+    );
+    mesh.position.set(this.dragonMesh.position.x - rnd(20, 60), this.dragonMesh.position.y + rnd(-30, 30), 1);
+    this.scene.add(mesh);
+    this.speedEffects.push({
+      mesh, t0: performance.now(), dur: rnd(500, 1000),
+      vx: -this.scrollSpeedPxPerSec(this.state.score) * 1.6, vy: 0, isLine: true
+    });
+  }
+
+  private spawnTrailParticles() {
+    if (this.phase !== 'playing') return;
+    const spawnChance = 0.4 + Math.min(0.6, this.state.score / 10000);
+    if (Math.random() > spawnChance) return;
+
+    const size = rnd(3, 8);
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(size, size, size),
+      new THREE.MeshBasicMaterial({ color: 0xff6600, opacity: 0.8, transparent: true })
+    );
+    mesh.position.set(this.dragonMesh.position.x - 30, this.dragonMesh.position.y - 10, 2);
+    this.scene.add(mesh);
+    this.speedEffects.push({
+      mesh, t0: performance.now(), dur: rnd(300, 600),
+      vx: -this.scrollSpeedPxPerSec(this.state.score) * 0.5, vy: rnd(20, 60), isLine: false
     });
   }
 

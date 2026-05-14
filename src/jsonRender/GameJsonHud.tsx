@@ -72,8 +72,8 @@ const playHudSpec = {
 function HudCoinBlockImpl({ element }: ComponentRenderProps) {
   const p = element.props as { coinPrefix?: unknown; value?: unknown };
   return (
-    <div className="hud-coin hud-box">
-      <span>{String(p.coinPrefix ?? '')}</span> <span>{String(p.value ?? '')}</span>
+    <div className="hud-coin hud-box sketch-float">
+      <span className="ink-bleed">{String(p.coinPrefix ?? '')}</span> <span className="ink-bleed">{String(p.value ?? '')}</span>
     </div>
   );
 }
@@ -119,10 +119,10 @@ function HudTimerStripImpl({ element }: ComponentRenderProps) {
   const timeStr = String(p.timeDisplay ?? '');
 
   return (
-    <div className="timer-strip">
+    <div className="timer-strip wobble-sketch">
       <div className="timer-bar-label">
-        <span className="timer-label">{String(p.headerLabel ?? '')}</span>
-        <span className="timer-value">{timeStr}</span>
+        <span className="timer-label ink-bleed">{String(p.headerLabel ?? '')}</span>
+        <span className="timer-value ink-bleed">{timeStr}</span>
       </div>
       <div className="timer-track sketch-border-inner">
         <div

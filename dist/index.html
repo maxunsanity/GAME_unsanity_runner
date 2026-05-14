@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title data-text-id="txt_doc_title">Unsanity · Runner</title>
-    <script type="module" crossorigin src="/assets/index-CiQvzBlk.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-C5hWho6S.css">
+    <script type="module" crossorigin src="/assets/index-Bbt4LBT-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cw-JPrXu.css">
   </head>
   <body>
     <div class="app">
@@ -24,20 +24,17 @@
               <input class="unsanity-radio-sr" type="radio" name="balance-tier" id="balance-tier-low"
                 value="low" checked />
               <label class="starter-coin-opt balance-tier-opt" for="balance-tier-low">
-                <span data-text-id="txt_tier_low_primary">하</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_tier_low_sub">키 큼 장애 늦게</span>
+                <span data-text-id="txt_tier_low_primary">하</span>
               </label>
               <input class="unsanity-radio-sr" type="radio" name="balance-tier" id="balance-tier-mid"
                 value="mid" />
               <label class="starter-coin-opt balance-tier-opt" for="balance-tier-mid">
-                <span data-text-id="txt_tier_mid_primary">중</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_tier_mid_sub">보통 페이즈</span>
+                <span data-text-id="txt_tier_mid_primary">중</span>
               </label>
               <input class="unsanity-radio-sr" type="radio" name="balance-tier" id="balance-tier-high"
                 value="high" />
               <label class="starter-coin-opt balance-tier-opt" for="balance-tier-high">
-                <span data-text-id="txt_tier_high_primary">상</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_tier_high_sub">빠른 압박</span>
+                <span data-text-id="txt_tier_high_primary">상</span>
               </label>
             </div>
             <div id="jr-lobby-spec-starter"></div>
@@ -45,46 +42,47 @@
               <input class="unsanity-radio-sr" type="radio" name="starter-coins" id="starter-coins-1"
                 value="1" />
               <label class="starter-coin-opt" for="starter-coins-1">
-                <span data-text-id="txt_starter_coin_opt_1">1코인</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_starter_coin_1_bonus">+100</span>
+                <span data-text-id="txt_starter_coin_opt_1">1코인</span>
               </label>
               <input class="unsanity-radio-sr" type="radio" name="starter-coins" id="starter-coins-3"
                 value="3" checked />
               <label class="starter-coin-opt" for="starter-coins-3">
-                <span data-text-id="txt_starter_coin_opt_3">3코인</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_starter_coin_3_bonus">+300</span>
+                <span data-text-id="txt_starter_coin_opt_3">3코인</span>
               </label>
               <input class="unsanity-radio-sr" type="radio" name="starter-coins" id="starter-coins-5"
                 value="5" />
               <label class="starter-coin-opt" for="starter-coins-5">
-                <span data-text-id="txt_starter_coin_opt_5">5코인</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_starter_coin_5_bonus">+500</span>
+                <span data-text-id="txt_starter_coin_opt_5">5코인</span>
               </label>
               <input class="unsanity-radio-sr" type="radio" name="starter-coins" id="starter-coins-8"
                 value="8" />
               <label class="starter-coin-opt" for="starter-coins-8">
-                <span data-text-id="txt_starter_coin_opt_8">8코인</span><br /><span
-                  class="starter-coin-sec" data-text-id="txt_starter_coin_8_bonus">+800</span>
+                <span data-text-id="txt_starter_coin_opt_8">8코인</span>
               </label>
             </div>
           </div>
           <div id="jr-start-actions" class="jr-overlay-actions"></div>
         </div>
-
-        <div id="gameover-screen" class="overlay overlay--solid z-gameover" hidden>
+        <div id="gameover-screen" class="overlay z-gameover" hidden>
           <div class="gameover-screen-body">
-            <div class="overlay-title caveat" data-text-id="txt_game_over_title">게임 오버</div>
-            <p id="gameover-reason" class="overlay-sub reason mono" data-text-id="txt_gameover_reason_placeholder">
+            <h1 class="ink-title" data-text-id="txt_game_over_title">RUN ENDED</h1>
+            <div id="gameover-reason" class="overlay-sub reason ink-bleed" data-text-id="txt_gameover_reason_placeholder">
               —
-            </p>
-            <p class="mono">
-              <span data-text-id="txt_label_score_word">점수</span> <span id="final-score">0</span
-              ><span data-text-id="txt_separator_dot"> · </span
-              ><span data-text-id="txt_label_coin_word">코인</span>
-              <span id="final-coin">0</span>
-            </p>
+            </div>
+            
+            <div class="result-card sketch-border">
+              <div class="result-row">
+                <span class="result-label" data-text-id="txt_label_score_word">SCORE</span>
+                <span id="final-score" class="result-value">0</span>
+              </div>
+              <div class="result-row">
+                <span class="result-label" data-text-id="txt_label_coin_word">COINS</span>
+                <span id="final-coin" class="result-value">0</span>
+              </div>
+            </div>
+
+            <div id="jr-restart-actions" class="jr-overlay-actions"></div>
           </div>
-          <div id="jr-restart-actions" class="jr-overlay-actions"></div>
         </div>
       </div>
     </div>

@@ -29,16 +29,24 @@ const overlayBtnRegistry: Record<string, ComponentRenderer> = {
     <div className="jr-overlay-scene-shell">{children}</div>
   ),
 
-  RunnerHudMButton: ({ element, emit }) => (
-    <button
-      type="button"
-      className="m-btn sketch-shadow"
-      style={{ pointerEvents: 'auto' }}
-      onClick={() => emit('press')}
-    >
-      {String((element.props as { label?: unknown }).label ?? '')}
-    </button>
-  ),
+  RunnerHudMButton: ({ element, emit }) => {
+    const label = String((element.props as { label?: unknown }).label ?? '');
+    // 시작 버튼이면 화살표, 다시하기면 리턴 아이콘 느낌
+    const isRestart = label.includes('다시') || label.includes('Restart') || label.includes('Lobby');
+    const icon = isRestart ? '↩' : '▶';
+
+    return (
+      <button
+        type="button"
+        className="m-btn sketch-shadow"
+        style={{ pointerEvents: 'auto' }}
+        onClick={() => emit('press')}
+      >
+        <span className="ink-bleed" style={{ marginRight: '8px', fontSize: '1.2em' }}>{icon}</span>
+        {label}
+      </button>
+    );
+  },
 };
 
 function makeStartSpec(btnLabel: string): Spec {
