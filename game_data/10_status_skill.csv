@@ -1,0 +1,2 @@
+status_id,applied_by_pickup_kind,duration_ms_tune_key,collision_ignore_obstacle,catalog_component_refs,fx_rows
+skill_inv_star,invincibility,INVINCIBILITY_MS,true,PickupInvincibility|InvincibilityFlicker|ObstacleContactIgnored,fx_inv_pulse

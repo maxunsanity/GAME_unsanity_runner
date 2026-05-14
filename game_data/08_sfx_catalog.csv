@@ -1,0 +1,5 @@
+sfx_id,trigger_event_key,asset_path,volume,note
+jump,player_jump,,0,AUDIO_URL 비우면 무음 단계
+coin_pick,pickup_coin,,0,
+pickup_star,pickup_star_invincibility,,0,
+gameover_hit,hit_obstacle_death,,0,

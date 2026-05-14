@@ -1,0 +1,16 @@
+meta_key,meta_value,comment
+runner_bundle_id,runner_v1,단일 패키지 — 레벨/웨이브 시트 없음
+levels_enabled,false,기획상 레벨 없음 → 해당 시트 종류 미사용
+tier_control_ui,starter_balance_radio,로비 #start-screen balance-tier 라디오(low/mid/high)
+tier_numbers_source,game_data/04_balance_tune.csv,tier 행으로 TALL_TREE_SEC_AFTER 등만 덮음
+loads_with_code,game_data/01···10,instant 함께 로드되는 고정 재료 패키지
+character_sheet,01_character_dragon.csv,RunnerCharacter
+object_sheet,02_object_obstacle.csv,Obstacle 풀(충돌)
+item_sheet,03_item_pickup.csv,Coin 및 별 무적 픽업
+balance_sheet,04_balance_tune.csv,전역+tier 수치(시간 플레이 사이클 제외 → 07)
+text_sheet,05_text_strings.csv,표시 문자열(기본 로케일 ko)
+fx_sheet,06_fx_catalog.csv,런타임 코드가 매핑하는 FX 정의 재료
+time_sheet,07_time_rules.csv,HUD 순환 등 ‘시간 규칙’ 수치(튜닝에 병합)
+sfx_sheet,08_sfx_catalog.csv,RunnerSfx 이벤트 키·에셋(비어있으면 무대)
+bgm_sheet,09_bgm_catalog.csv,RunnerMusic 트랙(비어있으면 재생 안 함)
+status_sheet,10_status_skill.csv,상태이상(스킬) 정의 무적별 등

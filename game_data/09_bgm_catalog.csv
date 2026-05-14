@@ -1,0 +1,3 @@
+bgm_id,runner_phase_hint,asset_path,volume,loop,note
+bgm_runner_idle,,,0.35,true,AUDIO 비우면 비재생
+bgm_runner_play,,,0.35,true,

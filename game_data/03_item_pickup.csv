@@ -1,0 +1,6 @@
+coin_id,emoji,value,spawn_height_type,air_offset_min,air_offset_max,spawn_weight,pickup_kind,note
+1,🪙,10,ground,0,0,100,coin,지면 줄 코인 · 스폰이 가로 줄로 이어짐
+2,⭐,0,ground,0,0,0,invincibility,별 — 스케줄러 · 무적 행만 10_status_skill
+3,🪙,10,air,72,128,105,coin,눈에 띄는 2층(점프 줄) · 밴드+Y재시도로 스폰
+
+

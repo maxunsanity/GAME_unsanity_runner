@@ -1,0 +1,5 @@
+fx_id,trigger_event,tune_duration_ms_key,catalog_mount,implementation_note
+fx_gameover_spin,obstacle_death_gameover,GAMEOVER_SPIN_MS,RunnerWorldVfx+RunnerCharacter,mesh 회전 Z + 스케일 다운(UnsanityGame.finishGameOver)
+fx_inv_pulse,skill_invincibility_active,,RunnerScreenFx+RunnerCharacter,MeshLambert 파형 무적 상태 tick
+fx_coin_pickup_feedback,coin_collected,,RunnerWorldVfx,에셋 없음 현재 즉시 제거 메시만
+fx_star_spawned_scheduled,,,RunnerWorldVfx,예약 픽업 스폰 시 별 메시 추가

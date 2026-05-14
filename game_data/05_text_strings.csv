@@ -1,0 +1,34 @@
+text_id,value,locale
+txt_doc_title,Unsanity · Runner,ko
+txt_char_name,Unsanity,ko
+txt_overlay_title,Unsanity 🐲,ko
+txt_overlay_sub,장애물 피하기 · 코인은 점수(개수)만 · 점프는 스페이스 / 탭,ko
+txt_difficulty_blurb,난이도 (발란스) · 기본 하,ko
+txt_starter_bonus_blurb,시작 코인 (보너스 점수 — 코인 하나당 +100),ko
+txt_tier_low_primary,하,ko
+txt_tier_low_sub,키 큼 장애 늦게,ko
+txt_tier_mid_primary,중,ko
+txt_tier_mid_sub,보통 페이즈,ko
+txt_tier_high_primary,상,ko
+txt_tier_high_sub,빠른 압박,ko
+txt_starter_coin_1_bonus,+100,ko
+txt_starter_coin_3_bonus,+300,ko
+txt_starter_coin_5_bonus,+500,ko
+txt_starter_coin_8_bonus,+800,ko
+txt_starter_coin_opt_1,1코인,ko
+txt_starter_coin_opt_3,3코인,ko
+txt_starter_coin_opt_5,5코인,ko
+txt_starter_coin_opt_8,8코인,ko
+txt_btn_start,시작,ko
+txt_btn_restart,다시하기,ko
+txt_game_over_title,게임 오버,ko
+txt_gameover_reason_placeholder,—,ko
+txt_label_score_word,점수,ko
+txt_label_coin_word,코인,ko
+txt_separator_dot, · ,ko
+txt_hud_play_time_header,플레이 시간,ko
+txt_hud_hi_prefix,HI,ko
+txt_hud_invinc_prefix,★ 무적,ko
+txt_hud_coin_prefix,🪙 × ,ko
+txt_hud_invinc_seconds_suffix,s,ko
+txt_death_collision,충돌!,ko

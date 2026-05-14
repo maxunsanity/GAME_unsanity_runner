@@ -1,0 +1,106 @@
+scope,tier,key,value,comment
+global,,VIEW_W,800,직교 카메라·월드 폭(px)
+global,,VIEW_H,300,직교 카메라·월드 높이(px)
+global,,GROUND,46,발판 Y(바닥)
+global,,STARTER_SCORE_PER_COIN,100,타이틀 시작 코인 1개당 초기 거리점수
+global,,COIN_RESPAWN_BASE_SEC,0.46,코인 웨이브 간격 · 줄 이어 붙임과 맞춤
+global,,COIN_CLUSTER_TRIPLE_GATE,0.09,연속 코인 줄 3개(지면 중심)
+global,,COIN_CLUSTER_DOUBLE_GATE,0.52,랜덤 u < 이 값 이면 2개 이상(3은 TRIPLE 게이트 우선)
+global,,COIN_AIR_ROW_MAX_CLUSTER,2,공중 줄은 과밀 방지 최대 길이
+global,,COIN_CHAIN_GAP_LO,36,같은 웨이브 내 줄 간격(px) 하한 — 이어져 보임
+global,,COIN_CHAIN_GAP_HI,44,줄 간격 상한
+global,,COIN_SPAWN_REJECT_RETRIES,7,장애랑 겹치면 X 재시도
+global,,COIN_AIR_BAND_PROB,0.45,코인 리스폰마다 「공중 줄 전용 웨이브」 확률(눈에 확 보임)
+global,,COIN_AIR_Y_BAND_RETRIES,6,공중 Y 띠를 새로 치며 장애 겹침 재시도 횟수
+global,,COIN_SPAWN_AIR_SAFE_PAD,9,공중 줄 전용 패드(바닥 돌 과도 억제)
+global,,COIN_SPAWN_SAFE_PAD,14,지면 줄 vs 장애 박스 최소 허 공간
+global,,COIN_AIR_LAYER_RND_LO,22,저공 줄 추가 높이 흔들림 · 지면 줄과 높이 분리
+global,,COIN_AIR_LAYER_RND_HI,58,
+global,,COIN_VERTICAL_STACK_PAIR_CHANCE,0.22,줄 놓인 뒤 같은 X 근처에 위로 한 번 더 얹기(2층 쌓임)
+global,,COIN_STACK_VERTICAL_GAP,32,세로 간격(px) — 코인 높이에 맞춤
+global,,COIN_GRID_X_RND_LO,84,단독 줄 첫 글 라인 랜덤 좁히기
+global,,COIN_GRID_X_RND_HI,252,
+global,,HIT_INSET,8,충돌 박스 안쪽 패딩
+global,,DRAGON_W,48,용 타깃 폭
+global,,DRAGON_H,48,용 타깃 높이
+global,,DRAGON_LEFT,80,용 고정 X(타깃 계산용)
+global,,GRAVITY,2200,Y 중력(px/s² 근사)
+global,,JUMP_IMPULSE,520,점프 초기 속도
+global,,COLLISION_IGNORE_MS,2200,판 시작 장애 충돌 무시 시간
+global,,INVINCIBILITY_MS,3000,별 무적 유지 시간
+global,,STAR_MIN_GAP_MS,8200,별 스폰 최소 간격
+global,,SUN_POS_XOF,280,태양광 방향 오프셋(+VIEW_W)
+global,,SUN_POS_YOF,140,태양(+VIEW_H)
+global,,SUN_POS_ZOF,900,Z
+global,,LIGHT_AMBIENT_INT,0.72,Ambient
+global,,LIGHT_SUN_INT,0.85,Directional
+global,,DRAGON_RENDER_ORDER,44,메시 renderOrder
+global,,SCROLL_PF_BASE,5,스크롤 px/frame 베이스
+global,,SCROLL_SCORE_CHUNK,100,점수 N마다 단계 증가
+global,,SCROLL_PF_STEP,0.3,단계당 px/frame 증분
+global,,SCROLL_MULT,60,프레임→초 속도 변환 배수
+global,,SCORE_PER_SEC,6,진행 시간당 자동 거리점수 증가율
+global,,DELTA_CAP,0.085,프레임 dt 상한
+global,,PARALLAX_MUL,0.08,구름 패럴랙스
+global,,PARALLAX_IDLE_BASE,4,타이틀 등 패럴랙스용 가짜 점수
+global,,PARALLAX_RESET_XLEFT,-120,구름 리셋 X
+global,,PARALLAX_RND_LO,40,
+global,,PARALLAX_RND_HI,200,
+global,,CLOUD_SZ_LO,72,
+global,,CLOUD_SZ_HI,120,
+global,,CLOUD_POS_X_LO,-40,
+global,,CLOUD_POS_Y_LO,210,
+global,,CLOUD_POS_Y_HI,280,
+global,,DRAGON_PULSE_FREQ,6.3,
+global,,DRAGON_PULSE_AMP,0.026,
+global,,IDLE_DRAGON_BOB_FREQ,2.4,
+global,,IDLE_DRAGON_BOB_AMP,3,
+global,,DRAGON_SCALE_FIT_MULT,0.92,
+global,,DRAGON_POS_Z_PLAY,4,
+global,,STEP_RESET_OBSTACLE_CD,1.6,
+global,,STEP_RESET_COIN_CD,0.35,
+global,,OBSTACLE_FAIL_COOLDOWN,0.5,
+global,,OBSTACLE_FRAMES_MIN,45,
+global,,OBSTACLE_FRAMES_BASE,150,
+global,,OBSTACLE_SCORE_DIV,10,
+global,,OBSTACLE_SPAWN_X_RND_LO,64,
+global,,OBSTACLE_SPAWN_X_RND_HI,200,
+global,,AIR_HEIGHT_RND_LO,18,
+global,,AIR_HEIGHT_RND_HI,52,
+global,,OBSTACLE_RECYCLE_LEFT_X,-140,
+global,,COIN_GRID_W,28,
+global,,COIN_GRID_H,28,
+global,,COIN_BOTTOM_OFF,8,
+global,,COIN_GRID_X_RND_LO,96,
+global,,COIN_GRID_X_RND_HI,260,
+global,,COIN_GRID_SI_GAP,48,(레거시) 구 스폰이 이어 놓던 간격 — 현재 줄은 COIN_CHAIN_*
+global,,COIN_PICKUP_DRAGON_EXPAND,8,
+global,,COIN_PICKUP_COIN_EXPAND,4,
+global,,COIN_DESTROY_LEFT_X,-80,
+global,,STAR_PICKUP_W,28,
+global,,STAR_PICKUP_H,28,
+global,,STAR_OFF_X_LO,80,
+global,,STAR_OFF_X_HI,240,
+global,,STAR_GAP_RESCHED_LO,40,
+global,,STAR_GAP_RESCHED_HI,320,
+global,,FIRST_STAR_MSTONE_MIN,14,
+global,,FIRST_STAR_MSTONE_MAX,26,
+global,,STAR_RESET_MSTONE_MIN,16,
+global,,STAR_RESET_MSTONE_MAX,30,
+global,,STAR_EACH_MSTONE_MIN,18,
+global,,STAR_EACH_MSTONE_MAX,34,
+global,,STAR_BATCH_PROB_GATE,0.68,
+global,,STAR_INNER_TWO_V_LT,0.14,
+global,,STAR_INNER_ONE_V_LT,0.88,
+global,,STAR_DELAY_MS_LO,240,
+global,,STAR_DELAY_MS_HI_BASE,1600,
+global,,STAR_DELAY_MS_PER_STAR_IDX,2800,
+global,,INVINC_SINE_HZ,4.4,
+global,,INVINC_ALPHA_MIN,0.42,
+global,,INVINC_ALPHA_MAX,1,
+global,,INVINC_EMB_MIN,0.12,
+global,,INVINC_EMB_MAX,0.62,
+global,,GAMEOVER_SPIN_MS,600,사망 회전 길이
+tier,low,TALL_TREE_SEC_AFTER,76,선인장 cactus 허용 경과초
+tier,mid,TALL_TREE_SEC_AFTER,44,
+tier,high,TALL_TREE_SEC_AFTER,13,키 큼 선인장 약간 늦춤 — 상 플 레이 패밀리

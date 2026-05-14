@@ -1,0 +1,20 @@
+{
+  "root": "lobbyStarterRoot",
+  "elements": {
+    "lobbyStarterRoot": {
+      "type": "SceneRoot",
+      "props": {},
+      "children": ["ph"],
+      "visible": true
+    },
+    "ph": {
+      "type": "RunnerLobbyCopyLine",
+      "props": {
+        "text": "__UNS_LOBBY_STARTER_TEXT__",
+        "variant": "starter_hint"
+      },
+      "children": [],
+      "visible": true
+    }
+  }
+}

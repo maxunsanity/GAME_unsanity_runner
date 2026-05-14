@@ -1,0 +1,2 @@
+character_id,actor_mesh_key,text_display_name_id,runner_slot,note
+dragon,dragon_group,txt_char_name,player,actorMeshes.createDragonGroup()와 연결 · 히트 수치는 발란스 키 DRAGON_* 
